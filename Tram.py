@@ -1,3 +1,4 @@
+# 116A
 
 n = int(input())
 result = 0

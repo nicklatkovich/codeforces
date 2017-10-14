@@ -1,3 +1,4 @@
+# 266A
 
 n = input()
 s = input()

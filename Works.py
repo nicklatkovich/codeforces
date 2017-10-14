@@ -1,3 +1,6 @@
+# 873A
+
+
 class Work:
     def __init__(self, usedTime: int, _id: int):
         self.usedTime = usedTime
