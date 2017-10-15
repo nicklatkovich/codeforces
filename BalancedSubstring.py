@@ -20,15 +20,18 @@ def main() -> None:
             cnt0Count += 1
         cnt0.append(cnt0Count)
         cnt1.append(cnt1Count)
-        b.append(cnt1Count - cnt0Count)
+        b.append(abs(cnt1Count - cnt0Count))
     usedB = []
     result = 0
-    for i in range(n):
-        if b[i] in usedB:
-            continue
-        j = rIndex(b, b[i])
-        result = max(result, j - i)
-        usedB.append(b[i])
+    if b[len(b) - 1] == 0:
+        result = len(b)
+    else:
+        for i in range(n):
+            if b[i] in usedB:
+                continue
+            j = rIndex(b, b[i])
+            result = max(result, j - i)
+            usedB.append(b[i])
     print(result)
 
 
