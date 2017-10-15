@@ -23,15 +23,17 @@ def main() -> None:
         b.append(abs(cnt1Count - cnt0Count))
     usedB = []
     result = 0
-    if b[len(b) - 1] == 0:
-        result = len(b)
-    else:
-        for i in range(n):
-            if b[i] in usedB:
-                continue
-            j = rIndex(b, b[i])
-            result = max(result, j - i)
-            usedB.append(b[i])
+    # if b[len(b) - 1] == 0:
+    #     result = len(b)
+    # else:
+    for i in range(n):
+        if b[i] in usedB:
+            continue
+        if b[i] == 0:
+            result = max(result, rIndex(b, 0) + 1)
+        else:
+            result = max(result, rIndex(b, b[i]) - i)
+        usedB.append(b[i])
     print(result)
 
 
