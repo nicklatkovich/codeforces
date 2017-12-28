@@ -3,11 +3,11 @@
 const int g=1000000007;
 struct e{
 public:
-	int i;
-	e*n;
-	e*p;
+	int c,i;
+	e*n,*p;
 	bool d;
-	e(int _i=0,e*_n=0,e*_p=0){
+	e(int _c,int _i=0,e*_n=0,e*_p=0){
+		c=_c;
 		i=_i;
 		n=_n;
 		p=_p;
@@ -15,37 +15,58 @@ public:
 	}
 };
 using namespace std;
+int max(int a,int b){return a<b?a:b;}
 int main(){
 	e*s=0,*f=0;
 	string str;
+	int l,*a,r=0;
 	cin>>str;
-	int l=str.length();
-	for(int i=0;i<l;i++){
-		if(i==0)s=f=new e(str[i]-'a',0,0);
-		else f=((f->n=new e(str[i]-'a',0,f))->p=f)->n;
+	a=new int[l=str.length()];
+	for(int i=0;i<l;i++)a[i]=str[i]-'a';
+	for(int i=0,in=1,n=0;i<l;i=in,in++){
+		n++;
+		if(in==l||a[i]!=a[in]){
+			if(s==0)s=f=new e(a[i],n);
+			else f=(f->n=new e(a[i],n,0,f));
+			n=0;
+		}
 	}
-	int r=0;
-	while(true){
-		bool _break=true;
+	while(s!=f){
+		int m;
+		bool b=true;
 		e*i=s;
 		while(i){
-			if((i->p&&i->p->i!=i->i)||(i->n&&i->n->i!=i->i)){
-				i->d=true;
-				_break=false;
-			}
+			int c=i==s||i==f?i->i:(i->i+1)/2;
+			m=b||m>c?c:m;
+			b=false;
 			i=i->n;
 		}
-		if(_break)break;
-		i = s;
+		if(b)break;
+		r+=m;
+		i=s;
 		while(i){
-			if(i->d){
-				if(i->p)i->p->n=i->n;
-				if(i->n)i->n->p=i->p;
+			i->i-=i==s||i==f?m:min(i->i,2*m);
+			i=i->n;
+		}
+		i=s;
+		while(i){
+			if(i->i==0){
+				if(i==s)s=s->n;
+				else i->p->n=i->n;
+				if(i==f)f=f->p;
+				else i->n->p=i->p;
 			}
 			i=i->n;
 		}
-		r++;
-		while(s&&s->d)s=s->n;
+		i=s;
+		while(i){
+			if(i->n&&i->c==i->n->c){
+				i->i+=i->n->i;
+				i->n=i->n->n;
+				if(i->n)i->n->p=i;
+				else f=i;
+			}else i=i->n;
+		}
 	}
 	cout<<r;
 }
