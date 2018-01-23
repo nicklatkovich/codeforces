@@ -67,6 +67,7 @@ BEGIN
             END;
             IF t2 THEN BEGIN
                 Dec(ind);
+				// temp???
                 Inc(aNums[Max(temp, (temp + 10) MOD 11)]);
                 IF isLess AND (ind = lastInd) THEN isLess := false;
             END;

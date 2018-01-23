@@ -1,3 +1,7 @@
 test.exe
 pascal/*
 !pascal/*.pas
+javascript/node_modules/
+javascript/package-lock.json
+javascript/.env
+javascript/input.txt
