@@ -70,24 +70,28 @@ function rearrangeNumbers(a, b) {
 			}
 			if (needToBreak) break;
 		}
+		var backStep = false;
 		while (ind + 1 < a.length) {
 			var needToStepBack = true;
-			var iFrom = isLess ? 9 : bNums[ind + 1];
+			var iFrom = backStep ? rNums[ind + 1] - 1 : isLess ? 9 : bNums[ind + 1];
 			for (var i = iFrom; i >= 0; i--) {
 				if (aNums[i] > 0) {
 					aNums[i]--;
 					ind++;
-					rNums[ind] = i;
-					if (!isLess && i < iFrom) {
+					if (!isLess && i < bNums[ind]) {
 						isLess = true;
 						lastInd = ind;
 					}
+					rNums[ind] = i;
+					backStep = false;
 					needToStepBack = false;
+					break;
 				}
 			}
 			if (needToStepBack) {
 				aNums[rNums[ind]]++;
 				ind--;
+				backStep = true;
 				// if (isLess && ind < lastInd) {
 				if (isLess && ind == lastInd) {
 					isLess = false;
