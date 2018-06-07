@@ -5,3 +5,5 @@ javascript/node_modules/
 javascript/package-lock.json
 javascript/.env
 javascript/input.txt
+a.out
+.vscode/
